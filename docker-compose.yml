@@ -8,6 +8,7 @@ services:
       - beszel_agent_data:/var/lib/beszel-agent
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/timezone:/etc/timezone:ro
+      - /var/lib/docker/volumes/.beszel:/extra-filesystems/sdb1:ro
     environment:
       - LISTEN=45876
       - KEY=${BESZEL_KEY}
