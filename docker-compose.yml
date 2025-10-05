@@ -1,0 +1,23 @@
+name: beszel-agent
+
+services:
+  beszel-agent:
+    image: henrygd/beszel-agent:${BESZEL_VERSION}
+    container_name: beszel-agent
+    volumes:
+      - beszel_agent_data:/var/lib/beszel-agent
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - LISTEN=45876
+      - KEY=${BESZEL_KEY}
+      - HUB_URL=${BESZEL_HUB_URL}
+      - TOKEN=${BESZEL_TOKEN}
+    network_mode: host
+    restart: unless-stopped
+    labels:
+      - wud.tag.include=^\d+\.\d+\.\d+$$
+      - traefik.enable=false
+
+volumes:
+  beszel_agent_data:
